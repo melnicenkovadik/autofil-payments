@@ -6,6 +6,10 @@ export const runtime = 'nodejs';
 
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_API_BASE = BOT_TOKEN ? `https://api.telegram.org/bot${BOT_TOKEN}` : '';
+const PROVIDER_TOKEN = process.env.TELEGRAM_PROVIDER_TOKEN;
+const PAY_CURRENCY = process.env.TELEGRAM_PAY_CURRENCY || 'USD';
+// Amount in minor units (e.g. cents) — 200 = $2.00
+const PAY_AMOUNT_MINOR = Number(process.env.TELEGRAM_PAY_AMOUNT_MINOR || '200');
 
 type TelegramUser = {
   id: number;
@@ -72,7 +76,7 @@ export async function POST(req: NextRequest) {
   const chatId = message.chat.id;
   const userId = message.from?.id;
 
-  // Handle commands: /start, /help, /email
+  // Handle commands: /start, /help, /email, /buy
   if (message.text && message.text.startsWith('/')) {
     const [command, arg] = message.text.split(/\s+/, 2);
 
@@ -83,7 +87,7 @@ export async function POST(req: NextRequest) {
           '👋 *Autofill Pro* bot',
           '',
           '1. Отправь команду `/email your@email.com`, чтобы привязать email, на который оплачиваешь Pro.',
-          '2. Оплати через Stars или другие способы, привязанные к этому боту.',
+          '2. Чтобы оплатить через Telegram Payments, отправь команду `/buy` и следуй инструкции.',
           '3. В расширении открой вкладку *PRO for life – $2* и нажми *Activate this device*.',
         ].join('\n'),
       );
@@ -112,6 +116,59 @@ export async function POST(req: NextRequest) {
         chatId,
         `✅ Email \`${email}\` привязан к твоему Telegram. Используй его в расширении на вкладке *PRO for life – $2*.`,
       );
+      return new NextResponse('ok', { status: 200 });
+    }
+
+    if (command === '/buy') {
+      if (!PROVIDER_TOKEN) {
+        await sendMessage(
+          chatId,
+          'Платёжный провайдер не настроен. Свяжись с разработчиком, чтобы закончить настройку оплаты.',
+        );
+        return new NextResponse('ok', { status: 200 });
+      }
+
+      if (!Number.isFinite(PAY_AMOUNT_MINOR) || PAY_AMOUNT_MINOR <= 0) {
+        await sendMessage(
+          chatId,
+          'Сумма платежа настроена неверно. Свяжись с разработчиком, чтобы это исправить.',
+        );
+        return new NextResponse('ok', { status: 200 });
+      }
+
+      try {
+        const title = 'Autofill Pro – lifetime';
+        const description = 'Разовая оплата за Pro-доступ к Autofill на 2 устройства.';
+
+        const resp = await fetch(`${TELEGRAM_API_BASE}/sendInvoice`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            title,
+            description,
+            payload: 'autofill_pro_lifetime',
+            provider_token: PROVIDER_TOKEN,
+            currency: PAY_CURRENCY,
+            prices: [
+              {
+                label: 'Autofill Pro',
+                amount: PAY_AMOUNT_MINOR,
+              },
+            ],
+          }),
+        });
+
+        if (!resp.ok) {
+          const text = await resp.text().catch(() => '');
+          console.error('Telegram sendInvoice failed', resp.status, text);
+          await sendMessage(chatId, 'Не удалось создать счёт. Попробуй позже.');
+        }
+      } catch (err) {
+        console.error('Telegram /buy error', err);
+        await sendMessage(chatId, 'Что-то пошло не так при создании счёта. Попробуй позже.');
+      }
+
       return new NextResponse('ok', { status: 200 });
     }
   }
