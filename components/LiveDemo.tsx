@@ -20,13 +20,16 @@ const DEMO_DATA = {
   github: 'https://github.com/johndoe',
 };
 
-// Detect OS
-const isMac = typeof window !== 'undefined' && navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-
 export function LiveDemo() {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [isAnimating, setIsAnimating] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isMac, setIsMac] = useState(false);
+
+  // Detect OS after mount to avoid hydration mismatch
+  useEffect(() => {
+    setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
+  }, []);
 
   const handleAutofill = useCallback(async () => {
     setIsAnimating(true);
@@ -99,7 +102,7 @@ export function LiveDemo() {
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-300 max-w-2xl mx-auto px-4">
             Click the button or press{' '}
             <kbd className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-white/10 rounded text-purple-300 text-xs sm:text-sm md:text-base">
-              {isMac ? '⌥' : 'Alt'}+Shift+F
+              Alt+Shift+F
             </kbd>{' '}
             to autofill all fields instantly
           </p>
@@ -300,7 +303,7 @@ export function LiveDemo() {
                 </li>
                 <li className="flex items-start gap-2 sm:gap-3">
                   <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-purple-400 flex-shrink-0 mt-0.5 sm:mt-1" />
-                  <span className="leading-relaxed">Press <kbd className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-white/10 rounded text-purple-300 text-xs sm:text-sm md:text-base">{isMac ? '⌥' : 'Alt'}+Shift+F</kbd> on any form</span>
+                  <span className="leading-relaxed">Press <kbd className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-white/10 rounded text-purple-300 text-xs sm:text-sm md:text-base">Alt+Shift+F</kbd> on any form</span>
                 </li>
                 <li className="flex items-start gap-2 sm:gap-3">
                   <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-purple-400 flex-shrink-0 mt-0.5 sm:mt-1" />
