@@ -1,43 +1,55 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Zap, Lock, Globe, DollarSign, Sparkles, Shield } from 'lucide-react';
+import { Zap, Lock, Globe, DollarSign, Sparkles, Shield, Brain, Users } from 'lucide-react';
 
 const features = [
   {
     icon: Zap,
     title: 'Lightning Fast',
-    description: 'Fill entire forms in milliseconds with a single keyboard shortcut',
+    description: 'Fill entire forms in milliseconds with a single keyboard shortcut (Cmd+Shift+F)',
     gradient: 'from-yellow-400 to-orange-500',
   },
   {
     icon: Lock,
-    title: 'Encrypted Locally',
-    description: 'Your data is encrypted and stored only on your device, never on our servers',
+    title: 'Encrypted & Local Storage',
+    description: 'All your data is encrypted with AES-256 and stored only in your browser. Never uploaded to any server.',
     gradient: 'from-blue-400 to-cyan-500',
+  },
+  {
+    icon: Brain,
+    title: 'AI-Powered Smart Fill',
+    description: 'Advanced AI analyzes form fields and intelligently matches them with your profile data for perfect autofill every time',
+    gradient: 'from-violet-400 to-purple-500',
+  },
+  {
+    icon: Users,
+    title: 'Unlimited Profiles',
+    description: 'Create unlimited profiles for work, personal, freelance, or any scenario. Switch between them instantly.',
+    gradient: 'from-pink-400 to-rose-500',
   },
   {
     icon: Globe,
     title: 'Works Everywhere',
-    description: 'Compatible with any website and form, no configuration needed',
+    description: 'Compatible with any website and form, no configuration needed. Works on job applications, checkout forms, and more.',
     gradient: 'from-green-400 to-emerald-500',
   },
   {
     icon: DollarSign,
     title: 'Pay Once, Own Forever',
-    description: 'No subscriptions, no hidden fees. Just $2 for lifetime access',
+    description: 'No subscriptions, no hidden fees. Just $2 for lifetime access with all features unlocked.',
     gradient: 'from-purple-400 to-pink-500',
   },
   {
     icon: Sparkles,
     title: 'Unlimited Everything',
-    description: 'Create unlimited profiles, fields, and custom mappings',
-    gradient: 'from-pink-400 to-rose-500',
+    description: 'Create unlimited profiles, fields, and custom mappings. No restrictions, no limits on what you can do.',
+    gradient: 'from-amber-400 to-orange-500',
   },
   {
     icon: Shield,
     title: 'Privacy First',
-    description: 'No tracking, no analytics, no data collection. Your privacy is guaranteed',
+    description: 'No tracking, no analytics, no data collection. Your privacy is guaranteed. All data stays on your device.',
     gradient: 'from-indigo-400 to-purple-500',
   },
 ];

@@ -1,0 +1,10 @@
+# Robots.txt for Autofill Pro
+User-agent: *
+Allow: /
+
+# Disallow admin and api routes
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://autofillpro.com/sitemap.xml
+

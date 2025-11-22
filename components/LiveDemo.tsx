@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, CheckCircle2 } from 'lucide-react';
 import { notifications } from '@mantine/notifications';
@@ -45,6 +45,22 @@ export function LiveDemo() {
 
     setIsAnimating(false);
   };
+
+  // Keyboard shortcut support
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Cmd+Shift+F on Mac or Ctrl+Shift+F on Windows/Linux
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'F') {
+        e.preventDefault();
+        if (!isAnimating) {
+          handleAutofill();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isAnimating]);
 
   const inputClass = "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all";
 
@@ -243,19 +259,19 @@ export function LiveDemo() {
               <ul className="space-y-4 text-slate-300">
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-purple-400 flex-shrink-0 mt-0.5" />
-                  <span>Install the Chrome extension and create your profiles</span>
+                  <span>Install the Chrome extension and create unlimited profiles for different scenarios</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-purple-400 flex-shrink-0 mt-0.5" />
-                  <span>Press <kbd className="px-2 py-1 bg-white/10 rounded text-purple-300">Alt+Shift+F</kbd> on any form</span>
+                  <span>Press <kbd className="px-2 py-1 bg-white/10 rounded text-purple-300">Cmd+Shift+F</kbd> on any form</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-purple-400 flex-shrink-0 mt-0.5" />
-                  <span>Watch all fields fill instantly with your data</span>
+                  <span>AI analyzes fields and fills them instantly with matching data from your profile</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-purple-400 flex-shrink-0 mt-0.5" />
-                  <span>Everything is encrypted and stored locally</span>
+                  <span>All data is encrypted with AES-256 and stored locally in your browser only</span>
                 </li>
               </ul>
             </div>
@@ -265,11 +281,15 @@ export function LiveDemo() {
               <ul className="space-y-3 text-slate-300">
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-400 rounded-full" />
-                  <span>No subscription, pay once for life</span>
+                  <span>No subscription - pay once, own forever</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-400 rounded-full" />
-                  <span>Works on unlimited websites</span>
+                  <span>AI-powered smart field matching</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-400 rounded-full" />
+                  <span>Works on unlimited websites & forms</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-400 rounded-full" />
@@ -278,6 +298,10 @@ export function LiveDemo() {
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-400 rounded-full" />
                   <span>Unlimited profiles & custom fields</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-400 rounded-full" />
+                  <span>100% local encryption - never uploaded</span>
                 </li>
               </ul>
             </div>

@@ -14,7 +14,7 @@ export function Footer() {
               Autofill Pro
             </h3>
             <p className="text-slate-400 mb-4 max-w-md">
-              The fastest way to fill forms on the web. Encrypted, private, and yours forever.
+              AI-powered autofill for Chrome. All data encrypted and stored locally. Unlimited profiles for any scenario.
             </p>
             <div className="flex gap-4">
               <a
@@ -102,9 +102,13 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} Autofill Pro. All rights reserved.
           </p>
-          <p>
-            Made with ❤️ for productivity
-          </p>
+          <div className="flex gap-4 text-xs">
+            <span>🔒 AES-256 Encrypted</span>
+            <span>•</span>
+            <span>🧠 AI-Powered</span>
+            <span>•</span>
+            <span>♾️ Unlimited Profiles</span>
+          </div>
         </div>
       </div>
     </footer>

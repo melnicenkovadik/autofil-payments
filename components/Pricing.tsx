@@ -6,11 +6,12 @@ import { Check, CreditCard, Send } from 'lucide-react';
 import { notifications } from '@mantine/notifications';
 
 const features = [
+  'AI-powered smart field matching',
   'Unlimited profiles & fields',
   'Works on any website',
   'Up to 2 browsers per license',
-  'Local encryption',
-  'No subscription',
+  'End-to-end local encryption',
+  'No subscription - lifetime access',
   'Lifetime updates',
   'Priority support',
 ];
