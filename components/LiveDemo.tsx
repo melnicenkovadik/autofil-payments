@@ -68,23 +68,28 @@ export function LiveDemo() {
     }, 3000);
   }, []);
 
-  // Keyboard shortcut support
+  // Keyboard shortcut support - global listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Option+Shift+F (Alt+Shift+F on Windows/Linux)
-      if (e.altKey && e.shiftKey && e.key === 'F') {
+      // Check both 'F' and 'f' for case-insensitive
+      if (e.altKey && e.shiftKey && (e.key === 'F' || e.key === 'f')) {
         e.preventDefault();
+        e.stopPropagation();
+        
         if (!isAnimating) {
           handleAutofill();
         }
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    // Use capture phase to catch events before they bubble
+    // This ensures it works even when focus is in inputs
+    document.addEventListener('keydown', handleKeyDown, true);
+    return () => document.removeEventListener('keydown', handleKeyDown, true);
   }, [isAnimating, handleAutofill]);
 
-  const inputClass = "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all cursor-not-allowed";
+  const inputClass = "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all cursor-not-allowed text-sm sm:text-base";
 
   return (
     <section id="demo" className="min-h-0 md:min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6">
@@ -96,13 +101,13 @@ export function LiveDemo() {
           transition={{ duration: 0.6 }}
           className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 md:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400 px-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 md:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400 px-4 font-display leading-tight tracking-tight">
             See It In Action
           </h2>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-300 max-w-2xl mx-auto px-4">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-300 max-w-2xl mx-auto px-4 leading-relaxed">
             Click the button or press{' '}
-            <kbd className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-white/10 rounded text-purple-300 text-xs sm:text-sm md:text-base">
-              Alt+Shift+F
+            <kbd className="px-2 py-1 sm:px-2.5 sm:py-1.5 bg-white/10 border border-white/20 rounded text-purple-300 text-xs sm:text-sm md:text-base font-semibold">
+              {isMac ? '⌥' : 'Alt'}+Shift+F
             </kbd>{' '}
             to autofill all fields instantly
           </p>
@@ -146,7 +151,7 @@ export function LiveDemo() {
             <div className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <motion.div animate={formData.fullName ? { scale: [1, 1.02, 1] } : {}}>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
+                  <label className="block text-sm sm:text-base font-medium text-slate-300 mb-2">Full Name</label>
                   <input
                     type="text"
                     value={formData.fullName || ''}
@@ -157,7 +162,7 @@ export function LiveDemo() {
                 </motion.div>
 
                 <motion.div animate={formData.email ? { scale: [1, 1.02, 1] } : {}}>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Email</label>
+                  <label className="block text-sm sm:text-base font-medium text-slate-300 mb-2">Email</label>
                   <input
                     type="email"
                     value={formData.email || ''}
@@ -170,7 +175,7 @@ export function LiveDemo() {
 
               <div className="grid md:grid-cols-2 gap-4">
                 <motion.div animate={formData.phone ? { scale: [1, 1.02, 1] } : {}}>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Phone</label>
+                  <label className="block text-sm sm:text-base font-medium text-slate-300 mb-2">Phone</label>
                   <input
                     type="tel"
                     value={formData.phone || ''}
@@ -181,7 +186,7 @@ export function LiveDemo() {
                 </motion.div>
 
                 <motion.div animate={formData.company ? { scale: [1, 1.02, 1] } : {}}>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Company</label>
+                  <label className="block text-sm sm:text-base font-medium text-slate-300 mb-2">Company</label>
                   <input
                     type="text"
                     value={formData.company || ''}
@@ -193,7 +198,7 @@ export function LiveDemo() {
               </div>
 
               <motion.div animate={formData.position ? { scale: [1, 1.02, 1] } : {}}>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Position</label>
+                <label className="block text-sm sm:text-base font-medium text-slate-300 mb-2">Position</label>
                 <input
                   type="text"
                   value={formData.position || ''}
@@ -205,7 +210,7 @@ export function LiveDemo() {
 
               <div className="grid md:grid-cols-2 gap-4">
                 <motion.div animate={formData.country ? { scale: [1, 1.02, 1] } : {}}>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Country</label>
+                  <label className="block text-sm sm:text-base font-medium text-slate-300 mb-2">Country</label>
                   <input
                     type="text"
                     value={formData.country || ''}
@@ -216,7 +221,7 @@ export function LiveDemo() {
                 </motion.div>
 
                 <motion.div animate={formData.city ? { scale: [1, 1.02, 1] } : {}}>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">City</label>
+                  <label className="block text-sm sm:text-base font-medium text-slate-300 mb-2">City</label>
                   <input
                     type="text"
                     value={formData.city || ''}
@@ -228,7 +233,7 @@ export function LiveDemo() {
               </div>
 
               <motion.div animate={formData.address ? { scale: [1, 1.02, 1] } : {}}>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Address</label>
+                <label className="block text-sm sm:text-base font-medium text-slate-300 mb-2">Address</label>
                 <input
                   type="text"
                   value={formData.address || ''}
@@ -239,7 +244,7 @@ export function LiveDemo() {
               </motion.div>
 
               <motion.div animate={formData.postalCode ? { scale: [1, 1.02, 1] } : {}}>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Postal Code</label>
+                <label className="block text-sm sm:text-base font-medium text-slate-300 mb-2">Postal Code</label>
                 <input
                   type="text"
                   value={formData.postalCode || ''}
@@ -250,7 +255,7 @@ export function LiveDemo() {
               </motion.div>
 
               <motion.div animate={formData.website ? { scale: [1, 1.02, 1] } : {}}>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Website</label>
+                <label className="block text-sm sm:text-base font-medium text-slate-300 mb-2">Website</label>
                 <input
                   type="url"
                   value={formData.website || ''}
@@ -262,7 +267,7 @@ export function LiveDemo() {
 
               <div className="grid md:grid-cols-2 gap-4">
                 <motion.div animate={formData.linkedin ? { scale: [1, 1.02, 1] } : {}}>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">LinkedIn</label>
+                  <label className="block text-sm sm:text-base font-medium text-slate-300 mb-2">LinkedIn</label>
                   <input
                     type="url"
                     value={formData.linkedin || ''}
@@ -273,7 +278,7 @@ export function LiveDemo() {
                 </motion.div>
 
                 <motion.div animate={formData.github ? { scale: [1, 1.02, 1] } : {}}>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">GitHub</label>
+                  <label className="block text-sm sm:text-base font-medium text-slate-300 mb-2">GitHub</label>
                   <input
                     type="url"
                     value={formData.github || ''}
@@ -303,7 +308,7 @@ export function LiveDemo() {
                 </li>
                 <li className="flex items-start gap-2 sm:gap-3">
                   <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-purple-400 flex-shrink-0 mt-0.5 sm:mt-1" />
-                  <span className="leading-relaxed">Press <kbd className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-white/10 rounded text-purple-300 text-xs sm:text-sm md:text-base">Alt+Shift+F</kbd> on any form</span>
+                  <span className="leading-relaxed text-sm sm:text-base md:text-lg">Press <kbd className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-white/10 border border-white/20 rounded text-purple-300 text-xs sm:text-sm md:text-base font-semibold">{isMac ? '⌥' : 'Alt'}+Shift+F</kbd> on any form</span>
                 </li>
                 <li className="flex items-start gap-2 sm:gap-3">
                   <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-purple-400 flex-shrink-0 mt-0.5 sm:mt-1" />
