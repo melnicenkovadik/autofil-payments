@@ -87,7 +87,7 @@ export function LiveDemo() {
   const inputClass = "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all cursor-not-allowed";
 
   return (
-    <section id="demo" className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6">
+    <section id="demo" className="min-h-0 md:min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

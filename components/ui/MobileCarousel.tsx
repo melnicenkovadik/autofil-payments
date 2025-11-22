@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState, ReactNode } from 'react';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { useState } from 'react';
+import { motion, PanInfo } from 'framer-motion';
+import { ReactNode } from 'react';
 
 interface MobileCarouselProps {
   children: ReactNode[];
@@ -10,16 +11,12 @@ interface MobileCarouselProps {
 
 export function MobileCarousel({ children, className = '' }: MobileCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const x = useMotionValue(0);
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleDragEnd = (_: any, info: any) => {
-    setIsDragging(false);
+  const handleDragEnd = (_: any, info: PanInfo) => {
     const offset = info.offset.x;
     const velocity = info.velocity.x;
 
-    if (Math.abs(velocity) > 500 || Math.abs(offset) > 50) {
+    if (Math.abs(velocity) > 500 || Math.abs(offset) > 100) {
       if (offset > 0 && currentIndex > 0) {
         setCurrentIndex(currentIndex - 1);
       } else if (offset < 0 && currentIndex < children.length - 1) {
@@ -28,40 +25,21 @@ export function MobileCarousel({ children, className = '' }: MobileCarouselProps
     }
   };
 
-  useEffect(() => {
-    const controls = animate(x, -currentIndex * 100, {
-      type: 'spring',
-      stiffness: 300,
-      damping: 30,
-    });
-
-    return controls.stop;
-  }, [currentIndex, x]);
-
   return (
     <div className={`relative overflow-hidden ${className}`}>
       <motion.div
-        ref={containerRef}
-        className="flex cursor-grab active:cursor-grabbing"
+        className="flex"
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.2}
-        onDragStart={() => setIsDragging(true)}
+        dragElastic={0.1}
         onDragEnd={handleDragEnd}
-        style={{
-          x: useTransform(x, (value) => `${value}%`),
-        }}
+        animate={{ x: `-${currentIndex * 100}%` }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       >
         {children.map((child, index) => (
-          <motion.div
-            key={index}
-            className="min-w-full"
-            style={{
-              pointerEvents: isDragging ? 'none' : 'auto',
-            }}
-          >
+          <div key={index} className="min-w-full">
             {child}
-          </motion.div>
+          </div>
         ))}
       </motion.div>
 

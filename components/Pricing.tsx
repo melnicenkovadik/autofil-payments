@@ -95,7 +95,7 @@ export function Pricing() {
   };
 
   return (
-    <section id="pricing" className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-24 px-6 flex items-center">
+    <section id="pricing" className="min-h-0 md:min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-16 sm:py-20 md:py-24 px-4 sm:px-6 flex items-center">
       <div className="max-w-4xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
