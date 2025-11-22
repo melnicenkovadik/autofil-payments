@@ -32,11 +32,11 @@ export function Pricing() {
         let extensionDetected = hasExtensionGlobal;
         
         try {
-          if (typeof chrome !== 'undefined' && chrome.runtime) {
+          if (typeof window !== 'undefined' && typeof (window as any).chrome !== 'undefined' && (window as any).chrome.runtime) {
             // Try to send a message to extension
             // Extension should expose its ID or respond to ping
-            chrome.runtime.sendMessage('YOUR_EXTENSION_ID', { type: 'ping' }, (response: any) => {
-              if (!chrome.runtime.lastError && response) {
+            (window as any).chrome.runtime.sendMessage('YOUR_EXTENSION_ID', { type: 'ping' }, (response: any) => {
+              if (!(window as any).chrome.runtime.lastError && response) {
                 setHasExtension(true);
               }
             });
