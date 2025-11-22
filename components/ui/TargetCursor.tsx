@@ -23,8 +23,8 @@ export function TargetCursor({
       setDimensions({
         width: rect.width,
         height: rect.height,
-        x: rect.left + window.scrollX,
-        y: rect.top + window.scrollY,
+        x: rect.left,
+        y: rect.top,
       });
     };
 
@@ -63,27 +63,24 @@ export function TargetCursor({
     };
   }, [hoveredElement, selector]);
 
+  if (!hoveredElement) return null;
+
   return (
-    <AnimatePresence>
-      {hoveredElement && (
-        <motion.div
-          className="pointer-events-none fixed z-50 rounded-lg"
-          style={{
-            left: 0,
-            top: 0,
-            width: dimensions.width + size,
-            height: dimensions.height + size,
-            transform: `translate(${dimensions.x - size/2}px, ${dimensions.y - size/2}px)`,
-            border: `2px solid ${color}`,
-            boxShadow: `0 0 20px ${color}40, inset 0 0 20px ${color}20`,
-          }}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
-          transition={{ type: "spring", stiffness: 400, damping: 30 }}
-        />
-      )}
-    </AnimatePresence>
+    <motion.div
+      className="pointer-events-none fixed z-[9999] rounded-lg"
+      style={{
+        left: dimensions.x - size / 2,
+        top: dimensions.y - size / 2,
+        width: dimensions.width + size,
+        height: dimensions.height + size,
+        border: `2px solid ${color}`,
+        boxShadow: `0 0 20px ${color}40, inset 0 0 20px ${color}20`,
+      }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+    />
   );
 }
 
