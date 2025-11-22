@@ -20,6 +20,9 @@ const DEMO_DATA = {
   github: 'https://github.com/johndoe',
 };
 
+// Detect OS
+const isMac = typeof window !== 'undefined' && navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+
 export function LiveDemo() {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [isAnimating, setIsAnimating] = useState(false);
@@ -49,8 +52,8 @@ export function LiveDemo() {
   // Keyboard shortcut support
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Cmd+Shift+F on Mac or Ctrl+Shift+F on Windows/Linux
-      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'F') {
+      // Option+Shift+F (Alt+Shift+F on Windows/Linux)
+      if (e.altKey && e.shiftKey && e.key === 'F') {
         e.preventDefault();
         if (!isAnimating) {
           handleAutofill();
@@ -78,7 +81,11 @@ export function LiveDemo() {
             See It In Action
           </h2>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            Click the button or press <kbd className="px-2 py-1 bg-white/10 rounded text-purple-300">Cmd+Shift+F</kbd> to autofill all fields instantly
+            Click the button or press{' '}
+            <kbd className="px-2 py-1 bg-white/10 rounded text-purple-300">
+              {isMac ? '⌥' : 'Alt'}+Shift+F
+            </kbd>{' '}
+            to autofill all fields instantly
           </p>
         </motion.div>
 
@@ -263,7 +270,7 @@ export function LiveDemo() {
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-purple-400 flex-shrink-0 mt-0.5" />
-                  <span>Press <kbd className="px-2 py-1 bg-white/10 rounded text-purple-300">Cmd+Shift+F</kbd> on any form</span>
+                  <span>Press <kbd className="px-2 py-1 bg-white/10 rounded text-purple-300">{isMac ? '⌥' : 'Alt'}+Shift+F</kbd> on any form</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-purple-400 flex-shrink-0 mt-0.5" />
