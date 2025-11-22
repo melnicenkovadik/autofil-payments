@@ -2,9 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { upsertLicense } from '../../../../lib/licenseStore';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-02-24.acacia',
-});
+const stripe = process.env.STRIPE_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: '2025-02-24.acacia',
+  })
+  : null as unknown as Stripe;
 
 export const runtime = 'nodejs';
 
@@ -21,6 +23,9 @@ export async function POST(req: NextRequest) {
   let event: Stripe.Event;
 
   try {
+    if (!stripe) {
+      throw new Error('Stripe not initialized');
+    }
     event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
   } catch (err) {
     console.error('Stripe webhook signature verification failed', err);

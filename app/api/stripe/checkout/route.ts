@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-02-24.acacia',
-});
+const stripe = process.env.STRIPE_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: '2025-02-24.acacia',
+  })
+  : null as unknown as Stripe;
 
 // Сколько устройств даём на одну оплату
 const SLOTS_PER_PAYMENT = 2;
@@ -29,6 +31,10 @@ export async function POST(req: NextRequest) {
       'https://autofil-payments.vercel.app';
 
     const slots = SLOTS_PER_PAYMENT * quantity;
+
+    if (!stripe) {
+      return NextResponse.json({ error: 'Stripe not initialized' }, { status: 500 });
+    }
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',

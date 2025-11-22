@@ -21,10 +21,24 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Autofill Pro - AI-Powered Form Autofill for Chrome | $2 Lifetime",
-  description: "Fill forms instantly with AI-powered autofill. AES-256 encrypted, unlimited profiles, works everywhere. No subscription - just $2 for lifetime access.",
-  keywords: ["autofill", "form filler", "chrome extension", "AI autofill", "form automation", "encrypted autofill", "password manager alternative"],
-  authors: [{ name: "Autofill Pro" }],
+  title: {
+    default: "Autofill Pro - AI-Powered Form Autofill for Chrome | Lifetime Access",
+    template: "%s | Autofill Pro"
+  },
+  description: "Stop typing manually. Autofill Pro uses AI to fill forms instantly. AES-256 encrypted, unlimited profiles, works on any website. Get lifetime access for just $2.",
+  keywords: [
+    "autofill",
+    "form filler",
+    "chrome extension",
+    "AI autofill",
+    "form automation",
+    "encrypted autofill",
+    "password manager alternative",
+    "auto fill extension",
+    "form filler chrome",
+    "productivity tool"
+  ],
+  authors: [{ name: "Autofill Pro", url: "https://autofillpro.com" }],
   creator: "Autofill Pro",
   publisher: "Autofill Pro",
   formatDetection: {
@@ -32,7 +46,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://autofillpro.com'), // Replace with your actual domain
+  metadataBase: new URL('https://autofillpro.com'),
   verification: {
     google: "ClD0bz26CR4SDG3ky_jCLBbaTwmIT0PlnrIR5T_mpJ8",
   },
@@ -41,26 +55,17 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Autofill Pro - AI-Powered Form Autofill for Chrome",
-    description: "Fill forms in seconds with AI-powered autofill. Encrypted locally, unlimited profiles. One-time payment of $2 for lifetime access.",
+    description: "Stop typing manually. Fill forms in seconds with AI-powered autofill. Encrypted locally, unlimited profiles. One-time payment of $2 for lifetime access.",
     url: 'https://autofillpro.com',
     siteName: 'Autofill Pro',
-    images: [
-      {
-        url: '/og-image.png', // You'll need to create this
-        width: 1200,
-        height: 630,
-        alt: 'Autofill Pro - AI-Powered Form Autofill',
-      },
-    ],
     locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: "Autofill Pro - AI-Powered Form Autofill for Chrome",
-    description: "Fill forms in seconds with AI-powered autofill. Just $2 for lifetime access.",
-    images: ['/og-image.png'], // You'll need to create this
-    creator: '@autofillpro', // Replace with your Twitter handle
+    description: "Stop typing manually. Fill forms in seconds with AI-powered autofill. Just $2 for lifetime access.",
+    creator: '@autofillpro',
   },
   robots: {
     index: true,
@@ -85,7 +90,8 @@ export const metadata: Metadata = {
   },
   manifest: '/site.webmanifest',
   appleWebApp: {
-    title: 'Autofill',
+    title: 'Autofill Pro',
+    statusBarStyle: 'default',
   },
 };
 
