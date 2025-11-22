@@ -84,21 +84,21 @@ export function LiveDemo() {
   const inputClass = "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all cursor-not-allowed";
 
   return (
-    <section id="demo" className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 py-16 sm:py-20 md:py-24 px-4 sm:px-6">
+    <section id="demo" className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400 px-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 md:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400 px-4">
             See It In Action
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-2xl mx-auto px-4">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-300 max-w-2xl mx-auto px-4">
             Click the button or press{' '}
-            <kbd className="px-2 py-1 bg-white/10 rounded text-purple-300 text-sm sm:text-base">
+            <kbd className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-white/10 rounded text-purple-300 text-xs sm:text-sm md:text-base">
               {isMac ? '⌥' : 'Alt'}+Shift+F
             </kbd>{' '}
             to autofill all fields instantly
@@ -291,53 +291,53 @@ export function LiveDemo() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="space-y-6"
           >
-            <div className="bg-gradient-to-br from-purple-600/20 to-pink-600/20 backdrop-blur-xl border border-purple-500/30 rounded-2xl p-6 md:p-8">
-              <h4 className="text-2xl md:text-3xl font-bold text-white mb-4 md:mb-6">How it works</h4>
-              <ul className="space-y-4 md:space-y-5 text-slate-300 text-base md:text-lg">
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 md:w-7 md:h-7 text-purple-400 flex-shrink-0 mt-1" />
+            <div className="bg-gradient-to-br from-purple-600/20 to-pink-600/20 backdrop-blur-xl border border-purple-500/30 rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8">
+              <h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 md:mb-6">How it works</h4>
+              <ul className="space-y-2.5 sm:space-y-3 md:space-y-4 lg:space-y-5 text-slate-300 text-sm sm:text-base md:text-lg">
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-purple-400 flex-shrink-0 mt-0.5 sm:mt-1" />
                   <span className="leading-relaxed">Install the Chrome extension and create unlimited profiles for different scenarios</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 md:w-7 md:h-7 text-purple-400 flex-shrink-0 mt-1" />
-                  <span className="leading-relaxed">Press <kbd className="px-2 py-1 bg-white/10 rounded text-purple-300 text-sm md:text-base">{isMac ? '⌥' : 'Alt'}+Shift+F</kbd> on any form</span>
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-purple-400 flex-shrink-0 mt-0.5 sm:mt-1" />
+                  <span className="leading-relaxed">Press <kbd className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-white/10 rounded text-purple-300 text-xs sm:text-sm md:text-base">{isMac ? '⌥' : 'Alt'}+Shift+F</kbd> on any form</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 md:w-7 md:h-7 text-purple-400 flex-shrink-0 mt-1" />
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-purple-400 flex-shrink-0 mt-0.5 sm:mt-1" />
                   <span className="leading-relaxed">AI analyzes fields and fills them instantly with matching data from your profile</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 md:w-7 md:h-7 text-purple-400 flex-shrink-0 mt-1" />
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-purple-400 flex-shrink-0 mt-0.5 sm:mt-1" />
                   <span className="leading-relaxed">All data is encrypted with AES-256 and stored locally in your browser only</span>
                 </li>
               </ul>
             </div>
 
-            <div className="bg-gradient-to-br from-green-600/20 to-emerald-600/20 backdrop-blur-xl border border-green-500/30 rounded-2xl p-6 md:p-8">
-              <h4 className="text-2xl md:text-3xl font-bold text-white mb-4 md:mb-6">Why Autofill Pro?</h4>
-              <ul className="space-y-3 md:space-y-4 text-slate-300 text-base md:text-lg">
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 md:w-2.5 md:h-2.5 bg-green-400 rounded-full flex-shrink-0" />
+            <div className="bg-gradient-to-br from-green-600/20 to-emerald-600/20 backdrop-blur-xl border border-green-500/30 rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8">
+              <h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 md:mb-6">Why Autofill Pro?</h4>
+              <ul className="space-y-2 sm:space-y-2.5 md:space-y-3 lg:space-y-4 text-slate-300 text-sm sm:text-base md:text-lg">
+                <li className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 bg-green-400 rounded-full flex-shrink-0" />
                   <span className="leading-relaxed">No subscription - pay once, own forever</span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 md:w-2.5 md:h-2.5 bg-green-400 rounded-full flex-shrink-0" />
+                <li className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 bg-green-400 rounded-full flex-shrink-0" />
                   <span className="leading-relaxed">AI-powered smart field matching</span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 md:w-2.5 md:h-2.5 bg-green-400 rounded-full flex-shrink-0" />
+                <li className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 bg-green-400 rounded-full flex-shrink-0" />
                   <span className="leading-relaxed">Works on unlimited websites & forms</span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 md:w-2.5 md:h-2.5 bg-green-400 rounded-full flex-shrink-0" />
+                <li className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 bg-green-400 rounded-full flex-shrink-0" />
                   <span className="leading-relaxed">Up to 2 browsers per license</span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 md:w-2.5 md:h-2.5 bg-green-400 rounded-full flex-shrink-0" />
+                <li className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 bg-green-400 rounded-full flex-shrink-0" />
                   <span className="leading-relaxed">Unlimited profiles & custom fields</span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 md:w-2.5 md:h-2.5 bg-green-400 rounded-full flex-shrink-0" />
+                <li className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 bg-green-400 rounded-full flex-shrink-0" />
                   <span className="leading-relaxed">100% local encryption - never uploaded</span>
                 </li>
               </ul>
