@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, CheckCircle2 } from 'lucide-react';
 import { notifications } from '@mantine/notifications';
@@ -28,7 +28,7 @@ export function LiveDemo() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const handleAutofill = async () => {
+  const handleAutofill = useCallback(async () => {
     setIsAnimating(true);
     setShowSuccess(false);
     setFormData({});
@@ -63,7 +63,7 @@ export function LiveDemo() {
         icon: <Zap className="w-5 h-5" />,
       });
     }, 3000);
-  };
+  }, []);
 
   // Keyboard shortcut support
   useEffect(() => {
@@ -79,7 +79,7 @@ export function LiveDemo() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isAnimating]);
+  }, [isAnimating, handleAutofill]);
 
   const inputClass = "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all cursor-not-allowed";
 
