@@ -129,7 +129,7 @@ export function FAQ() {
               We're here to help! Contact us anytime and we'll respond within 24 hours.
             </p>
             <a
-              href="mailto:support@autofillpro.com"
+              href="mailto:support@autofil-payments.vercel.app"
               className="inline-block px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105"
             >
               Contact Support

@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://autofillpro.com';
+  const baseUrl = 'https://autofil-payments.vercel.app';
 
   return [
     {

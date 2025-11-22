@@ -67,7 +67,7 @@ KV_REST_API_URL=your_kv_rest_api_url
 KV_REST_API_TOKEN=your_kv_rest_api_token
 
 # Site URL
-NEXT_PUBLIC_SITE_URL=https://autofillpro.com
+NEXT_PUBLIC_SITE_URL=https://autofil-payments.vercel.app
 ```
 
 4. Run development server
@@ -228,4 +228,4 @@ Private - All rights reserved
 
 ## Support
 
-For support, email support@autofillpro.com
+For support, email support@autofil-payments.vercel.app

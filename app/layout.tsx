@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     "form filler chrome",
     "productivity tool"
   ],
-  authors: [{ name: "Autofill Pro", url: "https://autofillpro.com" }],
+  authors: [{ name: "Autofill Pro", url: "https://autofil-payments.vercel.app" }],
   creator: "Autofill Pro",
   publisher: "Autofill Pro",
   referrer: "origin-when-cross-origin",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://autofillpro.com'),
+  metadataBase: new URL('https://autofil-payments.vercel.app'),
   verification: {
     google: "ClD0bz26CR4SDG3ky_jCLBbaTwmIT0PlnrIR5T_mpJ8",
   },
@@ -59,13 +59,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Autofill Pro - AI-Powered Form Autofill for Chrome",
     description: "Stop typing manually. Fill forms in seconds with AI-powered autofill. Encrypted locally, unlimited profiles. One-time payment of $2 for lifetime access.",
-    url: 'https://autofillpro.com',
+    url: 'https://autofil-payments.vercel.app',
     siteName: 'Autofill Pro',
     locale: 'en_US',
     type: 'website',
     images: [
       {
-        url: 'https://autofillpro.com/android-icon-192x192.png',
+        url: 'https://autofil-payments.vercel.app/android-icon-192x192.png',
         width: 192,
         height: 192,
         alt: 'Autofill Pro - AI-powered form autofill Chrome extension',
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     title: "Autofill Pro - AI-Powered Form Autofill for Chrome",
     description: "Stop typing manually. Fill forms in seconds with AI-powered autofill. Just $2 for lifetime access.",
     creator: '@autofillpro',
-    images: ['https://autofillpro.com/android-icon-192x192.png'],
+    images: ['https://autofil-payments.vercel.app/android-icon-192x192.png'],
   },
   robots: {
     index: true,

@@ -34,7 +34,7 @@ export function Footer() {
                 <Twitter className="w-5 h-5 text-slate-300" />
               </a>
               <a
-                href="mailto:support@autofillpro.com"
+                href="mailto:support@autofil-payments.vercel.app"
                 className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all"
               >
                 <Mail className="w-5 h-5 text-slate-300" />
@@ -89,7 +89,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="mailto:support@autofillpro.com" className="text-slate-400 hover:text-white transition-colors">
+                <a href="mailto:support@autofil-payments.vercel.app" className="text-slate-400 hover:text-white transition-colors">
                   Contact
                 </a>
               </li>

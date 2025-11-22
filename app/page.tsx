@@ -17,10 +17,10 @@ const softwareLd = {
   '@type': 'SoftwareApplication',
   name: 'Autofill Pro',
   applicationCategory: 'BrowserExtension',
-  url: 'https://autofillpro.com',
+  url: 'https://autofil-payments.vercel.app',
   operatingSystem: 'Chrome, Edge, Brave, Opera',
   publisher: {
-    '@id': 'https://autofillpro.com/#organization',
+    '@id': 'https://autofil-payments.vercel.app/#organization',
   },
   offers: {
     '@type': 'Offer',
@@ -47,7 +47,7 @@ const softwareLd = {
     'Local storage only',
     'Export/Import functionality'
   ],
-  screenshot: 'https://autofillpro.com/android-icon-192x192.png',
+  screenshot: 'https://autofil-payments.vercel.app/android-icon-192x192.png',
   softwareRequirements: 'Google Chrome, Microsoft Edge, or compatible Chromium browser',
 };
 
@@ -146,7 +146,7 @@ const breadcrumbLd = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: 'https://autofillpro.com'
+      item: 'https://autofil-payments.vercel.app'
     }
   ]
 };
@@ -154,10 +154,10 @@ const breadcrumbLd = {
 const organizationLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  '@id': 'https://autofillpro.com/#organization',
+  '@id': 'https://autofil-payments.vercel.app/#organization',
   name: 'Autofill Pro',
-  url: 'https://autofillpro.com',
-  logo: 'https://autofillpro.com/android-icon-192x192.png',
+  url: 'https://autofil-payments.vercel.app',
+  logo: 'https://autofil-payments.vercel.app/android-icon-192x192.png',
   sameAs: [
     'https://twitter.com/autofillpro',
     'https://github.com/autofillpro'
