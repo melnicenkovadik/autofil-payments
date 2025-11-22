@@ -26,9 +26,11 @@ const isMac = typeof window !== 'undefined' && navigator.platform.toUpperCase().
 export function LiveDemo() {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleAutofill = async () => {
     setIsAnimating(true);
+    setShowSuccess(false);
     setFormData({});
 
     // Animate filling each field with delay
@@ -39,6 +41,8 @@ export function LiveDemo() {
       setFormData(prev => ({ ...prev, [key]: DEMO_DATA[key] }));
     }
 
+    setShowSuccess(true);
+
     notifications.show({
       title: 'Form filled successfully!',
       message: `Filled ${fields.length} fields in ${(fields.length * 100) / 1000}s`,
@@ -47,6 +51,18 @@ export function LiveDemo() {
     });
 
     setIsAnimating(false);
+
+    // Clear form after 3 seconds and show reset message
+    setTimeout(() => {
+      setFormData({});
+      setShowSuccess(false);
+      notifications.show({
+        title: 'Demo reset!',
+        message: 'Try it again with the button or keyboard shortcut',
+        color: 'blue',
+        icon: <Zap className="w-5 h-5" />,
+      });
+    }, 3000);
   };
 
   // Keyboard shortcut support
@@ -65,7 +81,7 @@ export function LiveDemo() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isAnimating]);
 
-  const inputClass = "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all";
+  const inputClass = "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all cursor-not-allowed";
 
   return (
     <section id="demo" className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 py-24 px-6">
@@ -106,9 +122,23 @@ export function LiveDemo() {
                 className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105"
               >
                 <Zap className="w-5 h-5" />
-                Fill Form
+                {isAnimating ? 'Filling...' : 'Fill Form'}
               </button>
             </div>
+
+            {showSuccess && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="mb-4 p-3 bg-green-500/20 border border-green-500/30 rounded-lg flex items-center gap-2"
+              >
+                <CheckCircle2 className="w-5 h-5 text-green-400" />
+                <span className="text-green-300 text-sm">
+                  All fields filled! Resetting in 3 seconds...
+                </span>
+              </motion.div>
+            )}
 
             <div className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
@@ -117,7 +147,7 @@ export function LiveDemo() {
                   <input
                     type="text"
                     value={formData.fullName || ''}
-                    onChange={(e) => setFormData(prev => ({ ...prev, fullName: e.target.value }))}
+                    readOnly
                     placeholder="John Doe"
                     className={inputClass}
                   />
@@ -128,7 +158,7 @@ export function LiveDemo() {
                   <input
                     type="email"
                     value={formData.email || ''}
-                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                    readOnly
                     placeholder="john@example.com"
                     className={inputClass}
                   />
@@ -141,7 +171,7 @@ export function LiveDemo() {
                   <input
                     type="tel"
                     value={formData.phone || ''}
-                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                    readOnly
                     placeholder="+1 (555) 123-4567"
                     className={inputClass}
                   />
@@ -152,7 +182,7 @@ export function LiveDemo() {
                   <input
                     type="text"
                     value={formData.company || ''}
-                    onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
+                    readOnly
                     placeholder="Acme Inc."
                     className={inputClass}
                   />
@@ -164,7 +194,7 @@ export function LiveDemo() {
                 <input
                   type="text"
                   value={formData.position || ''}
-                  onChange={(e) => setFormData(prev => ({ ...prev, position: e.target.value }))}
+                  readOnly
                   placeholder="Software Engineer"
                   className={inputClass}
                 />
@@ -176,7 +206,7 @@ export function LiveDemo() {
                   <input
                     type="text"
                     value={formData.country || ''}
-                    onChange={(e) => setFormData(prev => ({ ...prev, country: e.target.value }))}
+                    readOnly
                     placeholder="United States"
                     className={inputClass}
                   />
@@ -187,7 +217,7 @@ export function LiveDemo() {
                   <input
                     type="text"
                     value={formData.city || ''}
-                    onChange={(e) => setFormData(prev => ({ ...prev, city: e.target.value }))}
+                    readOnly
                     placeholder="San Francisco"
                     className={inputClass}
                   />
@@ -199,7 +229,7 @@ export function LiveDemo() {
                 <input
                   type="text"
                   value={formData.address || ''}
-                  onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
+                  readOnly
                   placeholder="123 Market Street"
                   className={inputClass}
                 />
@@ -210,7 +240,7 @@ export function LiveDemo() {
                 <input
                   type="text"
                   value={formData.postalCode || ''}
-                  onChange={(e) => setFormData(prev => ({ ...prev, postalCode: e.target.value }))}
+                  readOnly
                   placeholder="94103"
                   className={inputClass}
                 />
@@ -221,7 +251,7 @@ export function LiveDemo() {
                 <input
                   type="url"
                   value={formData.website || ''}
-                  onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
+                  readOnly
                   placeholder="https://johndoe.com"
                   className={inputClass}
                 />
@@ -233,7 +263,7 @@ export function LiveDemo() {
                   <input
                     type="url"
                     value={formData.linkedin || ''}
-                    onChange={(e) => setFormData(prev => ({ ...prev, linkedin: e.target.value }))}
+                    readOnly
                     placeholder="linkedin.com/in/johndoe"
                     className={inputClass}
                   />
@@ -244,7 +274,7 @@ export function LiveDemo() {
                   <input
                     type="url"
                     value={formData.github || ''}
-                    onChange={(e) => setFormData(prev => ({ ...prev, github: e.target.value }))}
+                    readOnly
                     placeholder="github.com/johndoe"
                     className={inputClass}
                   />
