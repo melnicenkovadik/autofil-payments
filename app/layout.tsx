@@ -33,6 +33,9 @@ export const metadata: Metadata = {
     telephone: false,
   },
   metadataBase: new URL('https://autofillpro.com'), // Replace with your actual domain
+  verification: {
+    google: "ClD0bz26CR4SDG3ky_jCLBbaTwmIT0PlnrIR5T_mpJ8",
+  },
   alternates: {
     canonical: '/',
   },
