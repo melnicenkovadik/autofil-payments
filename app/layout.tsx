@@ -25,6 +25,8 @@ export const metadata: Metadata = {
     default: "Autofill Pro - AI-Powered Form Autofill for Chrome | Lifetime Access",
     template: "%s | Autofill Pro"
   },
+  applicationName: "Autofill Pro",
+  category: "productivity",
   description: "Stop typing manually. Autofill Pro uses AI to fill forms instantly. AES-256 encrypted, unlimited profiles, works on any website. Get lifetime access for just $2.",
   keywords: [
     "autofill",
@@ -41,6 +43,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Autofill Pro", url: "https://autofillpro.com" }],
   creator: "Autofill Pro",
   publisher: "Autofill Pro",
+  referrer: "origin-when-cross-origin",
   formatDetection: {
     email: false,
     address: false,
@@ -60,12 +63,21 @@ export const metadata: Metadata = {
     siteName: 'Autofill Pro',
     locale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: 'https://autofillpro.com/android-icon-192x192.png',
+        width: 192,
+        height: 192,
+        alt: 'Autofill Pro - AI-powered form autofill Chrome extension',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: "Autofill Pro - AI-Powered Form Autofill for Chrome",
     description: "Stop typing manually. Fill forms in seconds with AI-powered autofill. Just $2 for lifetime access.",
     creator: '@autofillpro',
+    images: ['https://autofillpro.com/android-icon-192x192.png'],
   },
   robots: {
     index: true,

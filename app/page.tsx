@@ -17,7 +17,11 @@ const softwareLd = {
   '@type': 'SoftwareApplication',
   name: 'Autofill Pro',
   applicationCategory: 'BrowserExtension',
+  url: 'https://autofillpro.com',
   operatingSystem: 'Chrome, Edge, Brave, Opera',
+  publisher: {
+    '@id': 'https://autofillpro.com/#organization',
+  },
   offers: {
     '@type': 'Offer',
     price: '2.00',
@@ -43,7 +47,7 @@ const softwareLd = {
     'Local storage only',
     'Export/Import functionality'
   ],
-  screenshot: 'https://autofillpro.com/og-image.png',
+  screenshot: 'https://autofillpro.com/android-icon-192x192.png',
   softwareRequirements: 'Google Chrome, Microsoft Edge, or compatible Chromium browser',
 };
 
@@ -150,6 +154,7 @@ const breadcrumbLd = {
 const organizationLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': 'https://autofillpro.com/#organization',
   name: 'Autofill Pro',
   url: 'https://autofillpro.com',
   logo: 'https://autofillpro.com/android-icon-192x192.png',
