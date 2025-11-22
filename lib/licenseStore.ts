@@ -85,9 +85,39 @@ export async function activateClient(
     clientIds: [...existing.clientIds, normalizedClientId],
     updatedAt: now,
   };
-
   await kv.set(key, next);
   return { license: next, alreadyActive: false };
+}
+
+export async function deactivateClient(
+  email: string,
+  clientId: string,
+): Promise<License | null> {
+  const key = makeKey(email);
+  const now = Date.now();
+  const existing = await kv.get<License | null>(key);
+
+  if (!existing) {
+    return null;
+  }
+
+  const normalizedClientId = clientId.trim();
+  if (!normalizedClientId) {
+    return existing;
+  }
+
+  if (!existing.clientIds.includes(normalizedClientId)) {
+    return existing;
+  }
+
+  const next: License = {
+    ...existing,
+    clientIds: existing.clientIds.filter((id) => id !== normalizedClientId),
+    updatedAt: now,
+  };
+
+  await kv.set(key, next);
+  return next;
 }
 
 
