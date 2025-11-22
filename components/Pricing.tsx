@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Check, CreditCard, Send } from 'lucide-react';
 import { notifications } from '@mantine/notifications';
@@ -19,6 +19,47 @@ const features = [
 export function Pricing() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [hasExtension, setHasExtension] = useState(false);
+
+  // Check if extension is installed
+  useEffect(() => {
+    const checkExtension = () => {
+      if (typeof window !== 'undefined') {
+        // Method 1: Check for extension-specific global variable set by content script
+        const hasExtensionGlobal = typeof (window as any).autofillPro !== 'undefined';
+        
+        // Method 2: Check for extension ID in chrome.runtime (if available)
+        let extensionDetected = hasExtensionGlobal;
+        
+        try {
+          if (typeof chrome !== 'undefined' && chrome.runtime) {
+            // Try to send a message to extension
+            // Extension should expose its ID or respond to ping
+            chrome.runtime.sendMessage('YOUR_EXTENSION_ID', { type: 'ping' }, (response: any) => {
+              if (!chrome.runtime.lastError && response) {
+                setHasExtension(true);
+              }
+            });
+          }
+        } catch (e) {
+          // Ignore errors - extension might not be installed
+        }
+        
+        setHasExtension(extensionDetected);
+      }
+    };
+
+    checkExtension();
+    // Check again after delay in case extension loads later
+    const timer = setTimeout(checkExtension, 1000);
+    // Also listen for extension ready event if extension sets it
+    window.addEventListener('autofillProReady', checkExtension);
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('autofillProReady', checkExtension);
+    };
+  }, []);
 
   const handleStripeCheckout = async () => {
     if (!email || !email.includes('@')) {
@@ -32,25 +73,41 @@ export function Pricing() {
 
     setLoading(true);
     try {
-      // This would call your actual Stripe endpoint
-      notifications.show({
-        title: 'Opening checkout...',
-        message: 'Redirecting to payment page',
-        color: 'blue',
-      });
-      
-      // For demo purposes
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      notifications.show({
-        title: 'Demo mode',
-        message: 'This is a demo. Install the extension to purchase!',
-        color: 'yellow',
-      });
+      if (hasExtension) {
+        // User has extension - proceed with actual checkout
+        notifications.show({
+          title: 'Opening checkout...',
+          message: 'Redirecting to payment page',
+          color: 'blue',
+        });
+        
+        // Call actual Stripe API endpoint
+        const response = await fetch('/api/stripe/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.url) {
+            window.location.href = data.url;
+          }
+        } else {
+          throw new Error('Failed to create checkout session');
+        }
+      } else {
+        // Demo mode - no extension detected
+        notifications.show({
+          title: 'Extension required',
+          message: 'Please install the extension first to purchase',
+          color: 'yellow',
+        });
+      }
     } catch (error) {
       notifications.show({
         title: 'Error',
-        message: 'Failed to open checkout',
+        message: hasExtension ? 'Failed to open checkout' : 'Please install the extension first',
         color: 'red',
       });
     } finally {
@@ -70,23 +127,41 @@ export function Pricing() {
 
     setLoading(true);
     try {
-      notifications.show({
-        title: 'Opening crypto payment...',
-        message: 'Redirecting to Telegram',
-        color: 'blue',
-      });
-      
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      notifications.show({
-        title: 'Demo mode',
-        message: 'This is a demo. Install the extension to purchase!',
-        color: 'yellow',
-      });
+      if (hasExtension) {
+        // User has extension - proceed with actual checkout
+        notifications.show({
+          title: 'Opening crypto payment...',
+          message: 'Redirecting to Telegram',
+          color: 'blue',
+        });
+        
+        // Call actual crypto bot API endpoint
+        const response = await fetch('/api/telegram/cryptobot/create-invoice', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.url) {
+            window.open(data.url, '_blank');
+          }
+        } else {
+          throw new Error('Failed to create invoice');
+        }
+      } else {
+        // Demo mode - no extension detected
+        notifications.show({
+          title: 'Extension required',
+          message: 'Please install the extension first to purchase',
+          color: 'yellow',
+        });
+      }
     } catch (error) {
       notifications.show({
         title: 'Error',
-        message: 'Failed to open crypto payment',
+        message: hasExtension ? 'Failed to open crypto payment' : 'Please install the extension first',
         color: 'red',
       });
     } finally {

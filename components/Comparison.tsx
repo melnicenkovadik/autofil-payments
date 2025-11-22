@@ -93,11 +93,6 @@ export function Comparison() {
   const ProCard = () => (
     <PixelCard className="h-full">
       <div className="relative bg-gradient-to-br from-purple-900/30 to-pink-900/30 backdrop-blur-xl border-2 border-purple-500/30 rounded-2xl p-6 sm:p-8 h-full">
-        {/* Popular badge */}
-        <div className="absolute -top-3 sm:-top-4 left-1/2 -translate-x-1/2 px-3 sm:px-4 py-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white text-xs sm:text-sm font-semibold">
-          Most Popular
-        </div>
-
         <div className="flex items-center gap-3 mb-4 sm:mb-6">
           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-lg shadow-purple-500/50">
             <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
