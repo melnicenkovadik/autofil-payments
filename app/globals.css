@@ -1,4 +1,7 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import '@mantine/core/styles.css';
 @import '@mantine/notifications/styles.css';
 
@@ -42,26 +45,11 @@ body {
   background: linear-gradient(180deg, #7c3aed, #db2777);
 }
 
-/* Animations */
-@keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 8s ease infinite;
-}
-
 /* Custom kbd styling */
 kbd {
   padding: 0.25rem 0.5rem;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 0.25rem;
-  font-family: var(--font-geist-mono);
+  font-family: var(--font-geist-mono), monospace;
   font-size: 0.875rem;
 }
